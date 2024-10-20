@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.mloleg.lanittask.dto.common.CommonResponse;
 import ru.mloleg.lanittask.dto.common.ValidationError;
-import ru.mloleg.lanittask.exception.LanitTaskException;
+import ru.mloleg.lanittask.exception.IdAlreadyInUseException;
+import ru.mloleg.lanittask.exception.PersonNotFoundException;
+import ru.mloleg.lanittask.exception.UnderageOwnerException;
 
 import java.util.List;
 
@@ -43,8 +45,18 @@ public class LanitTaskExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(LanitTaskException.class)
+    @ExceptionHandler({IdAlreadyInUseException.class, UnderageOwnerException.class})
     public CommonResponse<?> handleLanitTaskException(Exception e) {
+        log.error("Произошла ошибка: {}", e.getMessage(), e);
+
+        return CommonResponse.builder()
+                .errorMessage("Произошла ошибка: {%s}".formatted(e.getMessage()))
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PersonNotFoundException.class)
+    public CommonResponse<?> handlePersonNotFoundException(Exception e) {
         log.error("Произошла ошибка: {}", e.getMessage(), e);
 
         return CommonResponse.builder()

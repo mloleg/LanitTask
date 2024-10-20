@@ -111,7 +111,7 @@ public class CarsControllerTest extends AbstractTest {
     }
 
     @Test
-    void when_postCreate_withNonExistentPersonId_expect_badRequest() throws Exception {
+    void when_postCreate_withNonExistentPersonId_expect_notFound() throws Exception {
         CreateCarRequest createCarRequest = CreateCarRequest.builder()
                 .id(ID)
                 .model(MODEL)
@@ -124,7 +124,7 @@ public class CarsControllerTest extends AbstractTest {
         mockMvc.perform(post("/api/v1/car")
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isNotFound())
                 .andReturn();
     }
 

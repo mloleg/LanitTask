@@ -63,9 +63,9 @@ public class AdminControllerTest extends AbstractTest {
     }
 
     @Test
-    void when_getPersonWithCars_withNonExistentPersonId_expect_badRequest() throws Exception {
+    void when_getPersonWithCars_withNonExistentPersonId_expect_notFound() throws Exception {
         mockMvc.perform(get("/api/v1/admin/personwithcars?personid=" + 100))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isNotFound())
                 .andReturn();
     }
 
