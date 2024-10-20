@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: release/1.0.0
+      author: "mloleg"
+      changes:
+        - tagDatabase:
+            tag: release/1.0.0
+  - include:
+      file: 01.create_person.yml
+      relativeToChangelogFile: true
+  - include:
+      file: 02.create_car.yml
+      relativeToChangelogFile: true

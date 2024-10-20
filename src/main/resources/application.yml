@@ -1,0 +1,20 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: lanit-task
+  datasource:
+    url: jdbc:postgresql://localhost:5433/lanit_task
+    username: postgres
+    password: postgres
+    hikari:
+      schema: lanit_task
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS ${spring.datasource.hikari.schema}
+      connection-timeout: 250
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.yml
+  jpa:
+    hibernate:
+      ddl-auto: validate

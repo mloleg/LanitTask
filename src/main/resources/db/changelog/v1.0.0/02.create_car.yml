@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: "02.create_car.yml"
+      author: "mloleg"
+      changes:
+        - createTable:
+            ifNotExists: true
+            tableName: car
+            remarks: "Информация о машине"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: model
+                  type: varchar
+                  remarks: "Модель машины"
+              - column:
+                  name: horsepower
+                  type: int
+                  remarks: "Количество лошадиных сил"
+              - column:
+                  name: owner_id
+                  type: bigint
+                  remarks: "ID владельца"
+              - column:
+                  name: create_time
+                  type: timestamptz
+                  remarks: "Время создания записи"
+              - column:
+                  name: update_time
+                  type: timestamptz
+                  remarks: "Время последнего обновления записи"
+        - addForeignKeyConstraint:
+            baseTableName: car
+            baseColumnNames: owner_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: fk_car_owner

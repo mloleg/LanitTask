@@ -1,0 +1,17 @@
+version: '3.3'
+
+volumes:
+  postgres:
+
+services:
+  postgres-lanit-task:
+    image: postgres
+    container_name: postgres-lanit-task
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_DB: lanit_task
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
